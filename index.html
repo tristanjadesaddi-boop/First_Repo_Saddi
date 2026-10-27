@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-color: #1a1a2e;
+            --second-bg: #16213e;
+            --text-color: #fff;
+            --main-color: #00d9ff;
+            --accent: #ff2e63;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.9);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--main-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--main-color);
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 6rem 5% 2rem;
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .heading span {
+            color: var(--main-color);
+        }
+
+        /* Home */
+        .home {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            padding-top: 8rem;
+        }
+
+        .home-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .home-content h1 span {
+            color: var(--main-color);
+        }
+
+        .home-content h3 {
+            font-size: 1.5rem;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .home-content p {
+            max-width: 500px;
+            margin-bottom: 2rem;
+            color: #aaa;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--main-color);
+            color: #000;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px var(--main-color);
+        }
+
+        .home-img img {
+            border-radius: 50%;
+            border: 5px solid var(--main-color);
+        }
+
+        /* Skills */
+        .skills {
+            background: var(--second-bg);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-box {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .skill-box:hover {
+            transform: translateY(-10px);
+            border: 1px solid var(--main-color);
+        }
+
+        .skill-box i {
+            font-size: 3rem;
+            color: var(--main-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-box h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-box p {
+            color: #aaa;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--main-color);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* Education */
+        .education-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .edu-box {
+            background: var(--second-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--main-color);
+        }
+
+        .edu-box h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-box .school {
+            color: var(--main-color);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .edu-box .year {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .input-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem;
+            background: var(--second-bg);
+            border: none;
+            border-radius: 5px;
+            color: var(--text-color);
+            outline: none;
+            border: 1px solid transparent;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--main-color);
+        }
+
+        .contact-form textarea {
+            resize: none;
+        }
+
+        .contact-form .btn {
+            align-self: center;
+        }
+
+        .social-links {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: var(--second-bg);
+            border-radius: 50%;
+            color: var(--main-color);
+            font-size: 1.2rem;
+            margin: 0 0.5rem;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--main-color);
+            color: #000;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #0f0f1a;
+            color: #777;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .home {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .home-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">My<span>Portfolio</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="home">
+        <div class="home-content">
+            <h1>Hi, I'm <span>Tristan Jade Saddi</span></h1>
+            <h3>College IT Student</h3>
+            <p>I'm a passionate developer and functional websites. </p>
+            <a href="#contact" class="btn">Get In Touch</a>
+        </div>
+        <div class="home-img">
+            <img src="https://via.placeholder.com/300" alt="Profile Photo">
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <h2 class="heading">My <span>Skills</span></h2>
+        <div class="skills-container">
+            <div class="skill-box">
+                <i class="fas fa-code"></i>
+                <h3>HTML5</h3>
+                <p>Semantic markup & modern web structure</p>
+                <div class="progress-bar"><div class="progress" style="width: 95%"></div></div>
+            </div>
+            <div class="skill-box">
+                <i class="fab fa-css3-alt"></i>
+                <h3>CSS3</h3>
+                <p>Flexbox, Grid, Responsive Design</p>
+                <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
+            </div>
+            <div class="skill-box">
+                <i class="fab fa-js"></i>
+                <h3>JavaScript</h3>
+                <p>DOM, ES6+, Basic Interactivity</p>
+                <div class="progress-bar"><div class="progress" style="width: 75%"></div></div>
+            </div>
+            <div class="skill-box">
+                <i class="fab fa-react"></i>
+                <h3>React</h3>
+                <p>Component-based UI development</p>
+                <div class="progress-bar"><div class="progress" style="width: 65%"></div></div>
+            </div>
+            <div class="skill-box">
+                <i class="fas fa-palette"></i>
+                <h3>UI/UX Design</h3>
+                <p>Figma, Layout & Color Theory</p>
+                <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+            </div>
+            <div class="skill-box">
+                <i class="fab fa-git-alt"></i>
+                <h3>Git & GitHub</h3>
+                <p>Version Control & Collaboration</p>
+                <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="education">
+        <h2 class="heading">My <span>Education</span></h2>
+        <div class="education-container">
+            <div class="edu-box">
+                <h3>Bachelor of Science in Information Technology</h3>
+                <p class="school">Eastwood Professional College</p>
+                <p class="year">2023-Present</p>
+                <p>Specialized in Web Development and Software Engineering.</p>
+            </div>
+            <div class="edu-box">
+                <h3>Senior High School — TVL Strand</h3>
+                <p class="school">Bataan National High School</p>
+                <p class="year">2023 – 2025</p>
+                <p>Technical Vocational Livelihood Graduated with Honors.</p>
+            </div>
+            <div class="edu-box">
+                <h3>Online Certifications</h3>
+                <p class="school">Coursera / FreeCodeCamp / Udemy</p>
+                <p class="year">2022 – Present</p>
+                <p>Completed courses in Responsive Web Design, JavaScript Algorithms,</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="heading">Contact <span>Me</span></h2>
+        <form action="#" class="contact-form">
+            <div class="input-box">
+                <input type="text" placeholder="Tristan Jade Saddi" required>
+                <input type="email" placeholder="tristanjadesaddi@gmail.com" required>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="Subject">
+                <input type="text" placeholder="09691738123">
+            </div>
+            <textarea placeholder="Your Message..." rows="6" required></textarea>
+            <button type="submit" class="btn"></button>
+        </form>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Your Name. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message sent successfully! (This is a demo — connect to backend for real use)');
+            this.reset();
+        });
+
+        // Animate skill bars on scroll
+        const skillBars = document.querySelectorAll('.progress');
+        const skillsSection = document.querySelector('#skills');
+
+        const animateSkills = () => {
+            const sectionPos = skillsSection.getBoundingClientRect().top;
+            const screenPos = window.innerHeight / 1.3;
+            
+            if (sectionPos < screenPos) {
+                skillBars.forEach(bar => {
+                    bar.style.width = bar.style.width; // Triggers animation
+                });
+            }
+        };
+
+        window.addEventListener('scroll', animateSkills);
+    </script>
+</body>
+</html>
